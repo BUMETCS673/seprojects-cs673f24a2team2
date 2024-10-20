@@ -3,6 +3,7 @@ package edu.bu.cs673.secondhand.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.bu.cs673.secondhand.domain.IdleItem;
 import edu.bu.cs673.secondhand.domain.IdleItemExample;
@@ -13,6 +14,7 @@ import edu.bu.cs673.secondhand.model.ItemModel;
 import edu.bu.cs673.secondhand.service.IdleItemService;
 import edu.bu.cs673.secondhand.vo.PageVo;
 
+import jakarta.annotation.Resource;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class IdleItemServiceImpl implements IdleItemService {
+
+    @Resource
+    private IdleItem idleItemDao;
+
+    @Resource
+    private User userDao;
 
     @Autowired
     private IdleItemMapper itemMapper;
@@ -103,5 +111,25 @@ public class IdleItemServiceImpl implements IdleItemService {
         }
 
         return new PageVo<ItemModel>(result,1);
+    }
+
+    public PageVo<IdleItem> adminGetIdleList(int status, int page, int nums) {
+        List<IdleItem> list=idleItemDao.getIdleItemByStatus(status, (page - 1) * nums, nums);
+        if(list.size()>0){
+            List<Long> idList=new ArrayList<>();
+            for(IdleItem i:list){
+                idList.add(i.getUserId());
+            }
+            List<User> userList=userDao.findUserByList(idList);
+            Map<Long,User> map=new HashMap<>();
+            for(User user:userList){
+                map.put(user.getId(),user);
+            }
+            for(IdleItem i:list){
+                i.setUser(map.get(i.getUserId()));
+            }
+        }
+        int count=idleItemDao.countIdleItemByStatus(status);
+        return new PageVo<>(list,count);
     }
 }

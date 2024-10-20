@@ -2,6 +2,7 @@ package edu.bu.cs673.secondhand.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A class represent item.
@@ -129,5 +130,16 @@ public class IdleItem {
             ", pictureList=" + this.pictureList + ", price=" + this.idlePrice + 
             ", label=" + this.idleLabel + ", releaseTime=" + this.releaseTime + 
             ", status=" + this.idleStatus + ", place=" + this.idlePlace + ", userId=]";
+    }
+
+    public List<IdleItem> getIdleItemByStatus(int status, int i, int nums) {
+        return List.of();
+    }
+
+    public void setUser(User user) {
+    }
+
+    public int countIdleItemByStatus(int status) {
+        return status;
     }
 }

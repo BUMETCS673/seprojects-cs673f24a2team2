@@ -37,5 +37,6 @@
         <table tableName="sh_order" domainObjectName="Order"/>
 <!--        <table tableName="sh_idle_item" domainObjectName="Item"/>-->
         <table tableName="sh_message" domainObjectName="Message"/>
+        <table tableName="sh_admin" domainObjectName="Admin"/>
     </context>
 </generatorConfiguration>

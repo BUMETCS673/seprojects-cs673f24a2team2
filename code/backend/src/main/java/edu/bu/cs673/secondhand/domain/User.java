@@ -1,6 +1,7 @@
 package edu.bu.cs673.secondhand.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * User class represents a user in the system with various attributes.
@@ -137,5 +138,9 @@ public class User {
 
     public void setActivationToken(String activationToken) {
         this.activationToken = activationToken;
+    }
+
+    public List<User> findUserByList(List<Long> idList) {
+        return List.of();
     }
 }

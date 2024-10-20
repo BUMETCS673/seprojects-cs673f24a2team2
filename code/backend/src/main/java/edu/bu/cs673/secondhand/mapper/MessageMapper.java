@@ -3,12 +3,9 @@ package edu.bu.cs673.secondhand.mapper;
 import edu.bu.cs673.secondhand.domain.Message;
 import edu.bu.cs673.secondhand.domain.MessageExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
-@Mapper
 public interface MessageMapper {
     long countByExample(MessageExample example);
 
@@ -37,5 +34,4 @@ public interface MessageMapper {
     List<Message> getMyMessage(Long userId);
 
     List<Message> getIdleMessage(Long idleId);
-
 }

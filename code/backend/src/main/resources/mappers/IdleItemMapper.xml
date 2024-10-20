@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.bu.cs673.secondhand.mapper.IdleItemMapper">
-  <resultMap id="BaseResultMap" type="edu.bu.cs673.secondhand.domain.IdleItem">
+  <resultMap id="IdleItemBaseResultMap" type="edu.bu.cs673.secondhand.domain.IdleItem">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="idle_name" jdbcType="VARCHAR" property="idleName" />
     <result column="idle_details" jdbcType="VARCHAR" property="idleDetails" />

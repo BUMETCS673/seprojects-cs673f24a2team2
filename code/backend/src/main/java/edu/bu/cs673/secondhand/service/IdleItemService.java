@@ -6,6 +6,9 @@ import edu.bu.cs673.secondhand.domain.IdleItem;
 import edu.bu.cs673.secondhand.model.ItemModel;
 import edu.bu.cs673.secondhand.vo.PageVo;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * An interface for service provide by idle item
  */
@@ -70,4 +73,8 @@ public interface IdleItemService {
      * @return true if success
      */
     boolean removeItem(Long id);
+
+    PageVo<IdleItem> adminGetIdleList(int status, int page, int nums) ;
+
+
 }
