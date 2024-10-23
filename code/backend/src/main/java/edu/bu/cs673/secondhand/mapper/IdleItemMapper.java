@@ -32,4 +32,8 @@ public interface IdleItemMapper {
     int updateByPrimaryKey(IdleItem row);
 
     List<IdleItem> findIdleByList(List<Long> idList);
+
+    List<IdleItem> getIdleItemByStatus(int status, int i, int nums);
+
+    int countIdleItemByStatus(int status);
 }

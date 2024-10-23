@@ -25,17 +25,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class IdleItemServiceImpl implements IdleItemService {
 
-    @Resource
-    private IdleItem idleItemDao;
-
-    @Resource
-    private User userDao;
-
     @Autowired
     private IdleItemMapper itemMapper;
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private IdleItemMapper idleItemMapper;
 
     @Override
     public boolean addNewItem(IdleItem item) {
@@ -114,13 +110,18 @@ public class IdleItemServiceImpl implements IdleItemService {
     }
 
     public PageVo<IdleItem> adminGetIdleList(int status, int page, int nums) {
-        List<IdleItem> list=idleItemDao.getIdleItemByStatus(status, (page - 1) * nums, nums);
+        RowBounds rowBounds = new RowBounds((page - 1) * nums, nums);
+        IdleItemExample itemExample = new IdleItemExample();
+        IdleItemExample.Criteria criteria = itemExample.createCriteria();
+        criteria.andIdleStatusEqualTo(Byte.valueOf(String.valueOf(status)));
+        List<IdleItem> list = itemMapper.selectByExampleWithRowbounds(itemExample, rowBounds);
+
         if(list.size()>0){
             List<Long> idList=new ArrayList<>();
             for(IdleItem i:list){
                 idList.add(i.getUserId());
             }
-            List<User> userList=userDao.findUserByList(idList);
+            List<User> userList=userMapper.findUserByList(idList);
             Map<Long,User> map=new HashMap<>();
             for(User user:userList){
                 map.put(user.getId(),user);
@@ -129,7 +130,7 @@ public class IdleItemServiceImpl implements IdleItemService {
                 i.setUser(map.get(i.getUserId()));
             }
         }
-        int count=idleItemDao.countIdleItemByStatus(status);
+        int count= itemMapper.countIdleItemByStatus(status);
         return new PageVo<>(list,count);
     }
 }

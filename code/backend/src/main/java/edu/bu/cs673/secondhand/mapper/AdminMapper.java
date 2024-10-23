@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
-public interface AdminMapper {
+public interface
+
+AdminMapper {
     long countByExample(AdminExample example);
 
     int deleteByExample(AdminExample example);
@@ -33,6 +35,9 @@ public interface AdminMapper {
 
    
     Admin login(@Param("accountNumber") String accountNumber, @Param("adminPassword") String adminPassword);
+
+
     List<Admin> getList(@Param("offset") int offset, @Param("limit") int limit);
+
     int getCount();
 }
