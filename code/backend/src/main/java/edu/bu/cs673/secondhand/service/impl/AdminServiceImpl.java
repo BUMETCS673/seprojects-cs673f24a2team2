@@ -7,6 +7,8 @@ import edu.bu.cs673.secondhand.mapper.AdminMapper;
 import edu.bu.cs673.secondhand.service.AdminService;
 import edu.bu.cs673.secondhand.vo.PageVo;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -14,9 +16,18 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     @Override
     public Admin login(String accountNumber, String adminPassword) {
-        return adminMapper.login(accountNumber, adminPassword);
+        logger.info("Attempting to login with accountNumber: {}", accountNumber);
+        Admin admin = adminMapper.login(accountNumber, adminPassword);
+        if (admin == null) {
+            logger.warn("Login failed for accountNumber: {}", accountNumber);
+        } else {
+            logger.info("Login successful for accountNumber: {}", accountNumber);
+        }
+        return admin;
     }
 
     @Override
